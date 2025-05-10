@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppleBlog - 前端开发技术博客</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        'dark-gray': '#4B5563',
+                        'light-gray': '#F3F4F6',
+                        dark: '#1F2937'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-balance {
+                text-wrap: balance;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .article-card {
+                @apply bg-white rounded-xl overflow-hidden shadow-sm mb-8 hover:translate-y-[-1px] hover:shadow-lg; /* 修改了这里的类名使用 */
+            }
+            .category-badge {
+                @apply text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light-gray text-dark antialiased">
+    <!-- 导航栏 -->
+    <header class="fixed w-full top-0 z-50 bg-white shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-primary">
+                        <span class="text-dark">Apple</span>Blog
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-dark hover:text-primary transition-colors duration-200 font-medium">首页</a>
+                    <a href="#" class="text-dark-gray hover:text-primary transition-colors duration-200">文章</a>
+                    <a href="#" class="text-dark-gray hover:text-primary transition-colors duration-200">分类</a>
+                    <a href="#" class="text-dark-gray hover:text-primary transition-colors duration-200">关于</a>
+                    <a href="#" class="text-dark-gray hover:text-primary transition-colors duration-200">联系</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-dark focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="container mx-auto px-4 py-4 space-y-3">
+                <a href="#" class="block text-dark hover:text-primary transition-colors duration-200 font-medium">首页</a>
+                <a href="#" class="block text-dark-gray hover:text-primary transition-colors duration-200">文章</a>
+                <a href="#" class="block text-dark-gray hover:text-primary transition-colors duration-200">分类</a>
+                <a href="#" class="block text-dark-gray hover:text-primary transition-colors duration-200">关于</a>
+                <a href="#" class="block text-dark-gray hover:text-primary transition-colors duration-200">联系</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-gradient-to-br from-primary/5 to-primary/10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-6 text-dark text-shadow">
+                    探索前端技术的无限可能
+                </h1>
+                <p class="text-lg text-dark-gray mb-8 text-balance">
+                    分享Web开发的最新趋势、技术和最佳实践，助你成为更优秀的前端工程师。
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#articles" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-200 shadow-md hover:shadow-lg">
+                        浏览文章
+                    </a>
+                    <a href="#categories" class="px-6 py-3 bg-white text-primary border border-primary rounded-lg hover:bg-primary/5 transition-colors duration-200">
+                        探索分类
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章列表 -->
+    <section id="articles" class="py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold">最新文章</h2>
+                <div class="flex space-x-2">
+                    <button class="category-filter px-4 py-2 rounded-lg bg-primary text-white">全部</button>
+                    <button class="category-filter px-4 py-2 rounded-lg bg-white hover:bg-gray-100 transition-colors">前端开发</button>
+                    <button class="category-filter px-4 py-2 rounded-lg bg-white hover:bg-gray-100 transition-colors">性能优化</button>
+                </div>
+            </div>
+
+            <div id="articles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 文章卡片将通过JavaScript动态生成 -->
+            </div>
+
+            <!-- 分页 -->
+            <div id="pagination" class="mt-12 flex justify-center">
+                <nav class="inline-flex rounded-md shadow-sm">
+                    <a href="#" class="page-btn px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" data-page="prev">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <!-- 页码将通过JavaScript动态生成 -->
+                    <a href="#" class="page-btn px-3 py-2 border border-gray-300 bg-primary text-sm font-medium text-white" data-page="1">1</a>
+                    <a href="#" class="page-btn px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" data-page="2">2</a>
+                    <a href="#" class="page-btn px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" data-page="3">3</a>
+                    <span class="px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
+                    <a href="#" class="page-btn px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" data-page="10">10</a>
+                    <a href="#" class="page-btn px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" data-page="next">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分类区域 -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-12">文章分类</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <a href="#" class="category-card flex flex-col items-center justify-center p-6 bg-light-gray rounded-xl hover:bg-primary/5 transition-colors duration-200 hover:translate-y-[-1px] hover:shadow-lg"> <!-- 修改了这里的类名使用 -->
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-code text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1">前端开发</h3>
+                    <p class="text-sm text-dark-gray text-center">24 篇文章</p>
+                </a>
+                
+                <a href="#" class="category-card flex flex-col items-center justify-center p-6 bg-light-gray rounded-xl hover:bg-primary/5 transition-colors duration-200 hover:translate-y-[-1px] hover:shadow-lg"> <!-- 修改了这里的类名使用 -->
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-paint-brush text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1">UI/UX设计</h3>
+                    <p class="text-sm text-dark-gray text-center">18 篇文章</p>
+                </a>
+                
+                <a href="#" class="category-card flex flex-col items-center justify-center p-6 bg-light-gray rounded-xl hover:bg-primary/5 transition-colors duration-200 hover:translate-y-[-1px] hover:shadow-lg"> <!-- 修改了这里的类名使用 -->
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-bolt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1">性能优化</h3>
+                    <p class="text-sm text-dark-gray text-center">15 篇文章</p>
+                </a>
+                
+                <a href="#" class="category-card flex flex-col items-center justify-center p-6 bg-light-gray rounded-xl hover:bg-primary/5 transition-colors duration-200 hover:translate-y-[-1px] hover:shadow-lg"> <!-- 修改了这里的类名使用 -->
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-code-branch text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1">JavaScript</h3>
+                    <p class="text-sm text-dark-gray text-center">21 篇文章</p>
+                </a>
+                
+                <a href="#" class="category-card flex flex-col items-center justify-center p-6 bg-light-gray rounded-xl hover:bg-primary/5 transition-colors duration-200 hover:translate-y-[-1px] hover:shadow-lg"> <!-- 修改了这里的类名使用 -->
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-brands fa-css3-alt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1">CSS框架</h3>
+                    <p class="text-sm text-dark-gray text-center">12 篇文章</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 订阅区域 -->
+    <section class="py-16 bg-gradient-to-br from-primary/10 to-primary/5">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">订阅我的博客</h2>
+                <p class="text-dark-gray mb-8">
+                    获取最新的前端技术文章和教程，直接发送到您的邮箱。
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="输入您的邮箱地址" class="flex-grow px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <button type="submit" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-200 shadow-md hover:shadow-lg whitespace-nowrap">
+                        立即订阅
+                    </button>
+                </form>
+                <p class="text-xs text-dark-gray mt-4">
+                    我们尊重您的隐私，绝不会分享您的邮箱地址。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12 md:py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">AppleBlog</h3>
+                    <p class="text-gray-400 mb-6">
+                        探索前端技术的无限可能，分享创意与实践的个人博客。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">首页</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">文章</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">分类</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">关于</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">联系</a></li>
+                    </ul>
+                </div>
+                                <div>
+                    <h3 class="text-lg font-semibold mb-4">分类</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">前端开发</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">UI/UX设计</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">性能优化</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">JavaScript</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">CSS框架</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系方式</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa-solid fa-envelope mr-2"></i>
+                            <a href="mailto:contact@appleblog.com" class="hover:text-white transition-colors duration-200">contact@appleblog.com</a>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa-solid fa-map-marker-alt mr-2"></i>
+                            <span>北京市海淀区</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 AppleBlog. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 分类筛选
+        const categoryButtons = document.querySelectorAll('.category-filter');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的活动状态
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('bg-white', 'hover:bg-gray-100');
+                });
+                
+                // 设置当前按钮为活动状态
+                this.classList.remove('bg-white', 'hover:bg-gray-100');
+                this.classList.add('bg-primary', 'text-white');
+                
+                // 这里可以添加实际的筛选逻辑
+                const category = this.textContent.trim();
+                console.log(`筛选分类: ${category}`);
+                // 实际应用中，这里应该根据分类筛选文章
+                // 并且重置分页到第一页
+                currentPage = 1;
+                renderArticles();
+                updatePagination();
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果是移动端，点击后关闭菜单
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // 文章数据
+        const articles = [
+            {
+                id: 1,
+                title: "Vue 3 组合式API完全指南",
+                excerpt: "深入探讨Vue 3带来的组合式API，如何更好地组织代码、提高可维护性以及利用其强大的类型推导能力。",
+                category: "前端开发",
+                date: "2023年6月15日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=1",
+                authorImage: "https://picsum.photos/100/100?random=1",
+                link: "vue-3-composition-api-guide.html"
+            },
+            {
+                id: 2,
+                title: "Web Vitals性能优化",
+                excerpt: "了解Web Vitals核心指标，以及如何通过优化加载性能、交互性和视觉稳定性来提升用户体验。",
+                category: "性能优化",
+                date: "2023年6月10日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=2",
+                authorImage: "https://picsum.photos/100/100?random=2",
+                link: "#"
+            },
+            {
+                id: 3,
+                title: "现代响应式设计最佳实践",
+                excerpt: "探索现代响应式Web设计的最佳实践，包括断点设置、流体布局、图像优化和移动优先设计原则。",
+                category: "前端开发",
+                date: "2023年6月5日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=3",
+                authorImage: "https://picsum.photos/100/100?random=3",
+                link: "#"
+            },
+            {
+                id: 4,
+                title: "JavaScript设计模式实战",
+                excerpt: "通过实际案例学习JavaScript中常用的设计模式，包括单例模式、工厂模式和观察者模式等。",
+                category: "JavaScript",
+                date: "2023年5月28日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=4",
+                authorImage: "https://picsum.photos/100/100?random=4",
+                link: "#"
+            },
+            {
+                id: 5,
+                title: "Tailwind CSS v3高级技巧",
+                excerpt: "探索Tailwind CSS v3的高级特性和技巧，包括自定义配置、插件开发以及响应式设计策略。",
+                category: "CSS框架",
+                date: "2023年5月20日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=5",
+                authorImage: "https://picsum.photos/100/100?random=5",
+                link: "#"
+            },
+            {
+                id: 6,
+                title: "Web组件入门与实践",
+                excerpt: "了解Web Components标准，学习如何创建可复用的自定义元素，以及如何在现代框架中集成它们。",
+                category: "前端开发",
+                date: "2023年5月15日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=6",
+                authorImage: "https://picsum.photos/100/100?random=6",
+                link: "#"
+            },
+            {
+                id: 7,
+                title: "React Hooks完全指南",
+                excerpt: "深入理解React Hooks的工作原理和最佳实践，学习如何使用Hooks解决常见的开发问题。",
+                category: "前端开发",
+                date: "2023年5月8日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=7",
+                authorImage: "https://picsum.photos/100/100?random=7",
+                link: "#"
+            },
+            {
+                id: 8,
+                title: "前端安全最佳实践",
+                excerpt: "学习前端安全的关键概念和最佳实践，包括XSS、CSRF、CORS等常见安全问题的预防措施。",
+                category: "前端开发",
+                date: "2023年5月1日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=8",
+                authorImage: "https://picsum.photos/100/100?random=8",
+                link: "#"
+            },
+            {
+                id: 9,
+                title: "TypeScript高级类型实战",
+                excerpt: "探索TypeScript的高级类型特性，包括泛型、条件类型、映射类型等，提升代码的类型安全性。",
+                category: "JavaScript",
+                date: "2023年4月25日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=9",
+                authorImage: "https://picsum.photos/100/100?random=9",
+                link: "#"
+            },
+            {
+                id: 10,
+                title: "CSS Grid与Flexbox布局对比",
+                excerpt: "比较CSS Grid和Flexbox两种现代布局技术的优缺点，了解何时选择哪种布局方案。",
+                category: "CSS框架",
+                date: "2023年4月18日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=10",
+                authorImage: "https://picsum.photos/100/100?random=10",
+                link: "#"
+            },
+            {
+                id: 11,
+                title: "Web性能优化 checklist",
+                excerpt: "一份全面的Web性能优化清单，涵盖从代码到基础设施的各个方面，帮助你打造高性能网站。",
+                category: "性能优化",
+                date: "2023年4月10日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=11",
+                authorImage: "https://picsum.photos/100/100?random=11",
+                link: "#"
+            },
+            {
+                id: 12,
+                title: "PWA开发入门",
+                excerpt: "了解渐进式Web应用(PWA)的基本概念和核心特性，学习如何将普通网站转换为PWA。",
+                category: "前端开发",
+                date: "2023年4月2日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=12",
+                authorImage: "https://picsum.photos/100/100?random=12",
+                link: "#"
+            },
+            {
+                id: 13,
+                title: "JavaScript异步编程模式",
+                excerpt: "深入理解JavaScript中的异步编程模式，包括回调函数、Promise、async/await等，掌握异步代码的调试技巧。",
+                category: "JavaScript",
+                date: "2023年3月28日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=13",
+                authorImage: "https://picsum.photos/100/100?random=13",
+                link: "#"
+            },
+            {
+                id: 14,
+                title: "微前端架构实践",
+                excerpt: "探索微前端架构的设计理念和实现方式，了解如何将大型前端应用拆分为多个小型、自治的应用。",
+                category: "前端开发",
+                date: "2023年3月20日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=14",
+                authorImage: "https://picsum.photos/100/100?random=14",
+                link: "#"
+            },
+            {
+                id: 15,
+                title: "Vue.js与React对比分析",
+                excerpt: "对比分析Vue.js和React两大前端框架的优缺点、适用场景和生态系统，帮助你在项目中做出合适的技术选择。",
+                category: "前端开发",
+                date: "2023年3月15日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=15",
+                authorImage: "https://picsum.photos/100/100?random=15",
+                link: "#"
+            },
+            {
+                id: 16,
+                title: "Next.js性能优化策略",
+                excerpt: "学习Next.js应用的性能优化策略，包括代码分割、静态生成、服务器端渲染等技术的最佳实践。",
+                category: "前端开发",
+                date: "2023年3月8日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=16",
+                authorImage: "https://picsum.photos/100/100?random=16",
+                link: "#"
+            },
+            {
+                id: 17,
+                title: "CSS动画性能优化",
+                excerpt: "了解CSS动画的性能瓶颈和优化方法，学习如何创建流畅、高效的动画效果，避免常见的性能陷阱。",
+                category: "CSS框架",
+                date: "2023年3月1日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=17",
+                authorImage: "https://picsum.photos/100/100?random=17",
+                link: "#"
+            },
+            {
+                id: 18,
+                title: "GraphQL入门与实践",
+                excerpt: "学习GraphQL的基本概念和操作，了解它与REST API的区别和优势，掌握如何在项目中实现GraphQL API。",
+                category: "前端开发",
+                date: "2023年2月22日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=18",
+                authorImage: "https://picsum.photos/100/100?random=18",
+                link: "#"
+            },
+            {
+                id: 19,
+                title: "前端测试最佳实践",
+                excerpt: "探索前端测试的最佳实践，包括单元测试、集成测试、端到端测试等不同类型测试的实现方法和工具选择。",
+                category: "前端开发",
+                date: "2023年2月15日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=19",
+                authorImage: "https://picsum.photos/100/100?random=19",
+                link: "#"
+            },
+            {
+                id: 20,
+                title: "WebAssembly初探",
+                excerpt: "了解WebAssembly的基本概念和工作原理，学习如何将C/C++、Rust等语言编写的代码编译为WebAssembly模块并在浏览器中运行。",
+                category: "前端开发",
+                date: "2023年2月8日",
+                author: "Apple",
+                image: "https://picsum.photos/800/600?random=20",
+                authorImage: "https://picsum.photos/100/100?random=20",
+                link: "#"
+            }
+        ];
+
+        // 分页功能
+        const articlesPerPage = 6; // 每页显示的文章数量
+        let currentPage = 1; // 当前页码
+        let filteredArticles = [...articles]; // 过滤后的文章列表，初始为全部文章
+
+        // 渲染文章列表
+        function renderArticles() {
+            const container = document.getElementById('articles-container');
+            container.innerHTML = '';
+            
+            // 计算当前页要显示的文章
+            const startIndex = (currentPage - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const currentArticles = filteredArticles.slice(startIndex, endIndex);
+            
+            // 如果没有文章，显示提示
+            if (currentArticles.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fa-solid fa-newspaper text-5xl text-gray-400 mb-4"></i>
+                        <h3 class="text-xl font-medium text-gray-500">没有找到文章</h3>
+                        <p class="text-gray-400 mt-2">尝试切换分类或检查搜索词</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 生成文章卡片
+            currentArticles.forEach(article => {
+                const articleCard = document.createElement('article');
+                articleCard.className = 'article-card';
+                articleCard.innerHTML = `
+                    <div class="h-48 overflow-hidden">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-xs text-dark-gray mb-3">
+                            <span class="category-badge">${article.category}</span>
+                            <span class="mx-2">•</span>
+                            <span>${article.date}</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">
+                            <a href="${article.link}" class="hover:text-primary transition-colors duration-200">${article.title}</a>
+                        </h3>
+                        <p class="text-dark-gray mb-4 line-clamp-3">
+                            ${article.excerpt}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="${article.authorImage}" alt="${article.author}" class="w-8 h-8 rounded-full mr-2">
+                                <span class="text-sm text-dark-gray">${article.author}</span>
+                            </div>
+                            <a href="${article.link}" class="text-primary hover:text-primary/80 text-sm flex items-center">
+                                阅读更多 <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(articleCard);
+            });
+        }
+
+        // 更新分页控件
+        function updatePagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            
+            // 如果只有一页或没有文章，不显示分页控件
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            
+            // 清空现有分页控件
+            const nav = pagination.querySelector('nav');
+            nav.innerHTML = '';
+            
+            // 添加"上一页"按钮
+            const prevButton = document.createElement('a');
+            prevButton.href = '#';
+            prevButton.className = `page-btn px-3 py-2 rounded-l-md border border-gray-300 ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'}`;
+            prevButton.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+            prevButton.dataset.page = 'prev';
+            prevButton.addEventListener('click', handlePageClick);
+            nav.appendChild(prevButton);
+            
+            // 计算要显示的页码范围
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            
+            // 如果显示的页码范围不足5个，调整起始页码
+            if (endPage - startPage < 4 && startPage > 1) {
+                startPage = Math.max(1, endPage - 4);
+            }
+            
+            // 添加省略号和首页按钮
+            if (startPage > 1) {
+                addPageButton(1, nav);
+                
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700';
+                    ellipsis.textContent = '...';
+                    nav.appendChild(ellipsis);
+                }
+            }
+            
+            // 添加页码按钮
+            for (let i = startPage; i <= endPage; i++) {
+                addPageButton(i, nav);
+            }
+            
+            // 添加省略号和末页按钮
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700';
+                    ellipsis.textContent = '...';
+                    nav.appendChild(ellipsis);
+                }
+                
+                addPageButton(totalPages, nav);
+            }
+            
+            // 添加"下一页"按钮
+            const nextButton = document.createElement('a');
+            nextButton.href = '#';
+            nextButton.className = `page-btn px-3 py-2 rounded-r-md border border-gray-300 ${currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'}`;
+            nextButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+            nextButton.dataset.page = 'next';
+            nextButton.addEventListener('click', handlePageClick);
+            nav.appendChild(nextButton);
+        }
+        
+        // 添加页码按钮
+        function addPageButton(pageNumber, container) {
+            const button = document.createElement('a');
+            button.href = '#';
+            button.className = `page-btn px-3 py-2 border border-gray-300 ${pageNumber === currentPage ? 'bg-primary text-white' : 'bg-white text-sm font-medium text-gray-700 hover:bg-gray-50'}`;
+            button.textContent = pageNumber;
+            button.dataset.page = pageNumber;
+            button.addEventListener('click', handlePageClick);
+            container.appendChild(button);
+        }
+        
+        // 处理页码点击事件
+        function handlePageClick(e) {
+            e.preventDefault();
+            
+            const target = e.currentTarget;
+            const page = target.dataset.page;
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            
+            // 如果按钮是禁用状态，不执行任何操作
+            if (target.classList.contains('cursor-not-allowed')) {
+                return;
+            }
+            
+            // 处理上一页和下一页
+            if (page === 'prev') {
+                if (currentPage > 1) {
+                    currentPage--;
+                }
+            } else if (page === 'next') {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                }
+            } else {
+                // 处理具体页码
+                currentPage = parseInt(page);
+            }
+            
+            // 更新文章列表和分页控件
+            renderArticles();
+            updatePagination();
+            
+            // 滚动到文章列表顶部
+            document.getElementById('articles').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // 初始化文章列表和分页
+        document.addEventListener('DOMContentLoaded', () => {
+            renderArticles();
+            updatePagination();
+            
+            // 初始化分类筛选
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.textContent.trim();
+                    
+                    // 筛选文章
+                    if (category === '全部') {
+                        filteredArticles = [...articles];
+                    } else {
+                        filteredArticles = articles.filter(article => article.category === category);
+                    }
+                    
+                    // 重置页码并更新显示
+                    currentPage = 1;
+                    renderArticles();
+                    updatePagination();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

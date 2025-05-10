@@ -1,0 +1,222 @@
+export const articles = [
+  {
+    id: 1,
+    title: "Vue 3 组合式API完全指南",
+    excerpt: "深入探讨Vue 3带来的组合式API，如何更好地组织代码、提高可维护性以及利用其强大的类型推导能力。",
+    category: "前端开发",
+    date: "2023年6月15日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=1",
+    authorImage: "https://picsum.photos/100/100?random=1",
+    link: "vue-3-composition-api-guide.html"
+  },
+  {
+    id: 2,
+    title: "Web Vitals性能优化",
+    excerpt: "了解Web Vitals核心指标，以及如何通过优化加载性能、交互性和视觉稳定性来提升用户体验。",
+    category: "性能优化",
+    date: "2023年6月10日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=2",
+    authorImage: "https://picsum.photos/100/100?random=2",
+    link: "#"
+  },
+  {
+    id: 3,
+    title: "现代响应式设计最佳实践",
+    excerpt: "探索现代响应式Web设计的最佳实践，包括断点设置、流体布局、图像优化和移动优先设计原则。",
+    category: "前端开发",
+    date: "2023年6月5日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=3",
+    authorImage: "https://picsum.photos/100/100?random=3",
+    link: "#"
+  },
+  {
+    id: 4,
+    title: "JavaScript设计模式实战",
+    excerpt: "通过实际案例学习JavaScript中常用的设计模式，包括单例模式、工厂模式和观察者模式等。",
+    category: "JavaScript",
+    date: "2023年5月28日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=4",
+    authorImage: "https://picsum.photos/100/100?random=4",
+    link: "#"
+  },
+  {
+    id: 5,
+    title: "Tailwind CSS v3高级技巧",
+    excerpt: "探索Tailwind CSS v3的高级特性和技巧，包括自定义配置、插件开发以及响应式设计策略。",
+    category: "CSS框架",
+    date: "2023年5月20日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=5",
+    authorImage: "https://picsum.photos/100/100?random=5",
+    link: "#"
+  },
+  {
+    id: 6,
+    title: "Web组件入门与实践",
+    excerpt: "了解Web Components标准，学习如何创建可复用的自定义元素，以及如何在现代框架中集成它们。",
+    category: "前端开发",
+    date: "2023年5月15日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=6",
+    authorImage: "https://picsum.photos/100/100?random=6",
+    link: "#"
+  },
+  {
+    id: 7,
+    title: "React Hooks完全指南",
+    excerpt: "深入理解React Hooks的工作原理和最佳实践，学习如何使用Hooks解决常见的开发问题。",
+    category: "前端开发",
+    date: "2023年5月8日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=7",
+    authorImage: "https://picsum.photos/100/100?random=7",
+    link: "#"
+  },
+  {
+    id: 8,
+    title: "前端安全最佳实践",
+    excerpt: "学习前端安全的关键概念和最佳实践，包括XSS、CSRF、CORS等常见安全问题的预防措施。",
+    category: "前端开发",
+    date: "2023年5月1日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=8",
+    authorImage: "https://picsum.photos/100/100?random=8",
+    link: "#"
+  },
+  {
+    id: 9,
+    title: "TypeScript高级类型实战",
+    excerpt: "探索TypeScript的高级类型特性，包括泛型、条件类型、映射类型等，提升代码的类型安全性。",
+    category: "JavaScript",
+    date: "2023年4月25日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=9",
+    authorImage: "https://picsum.photos/100/100?random=9",
+    link: "#"
+  },
+  {
+    id: 10,
+    title: "CSS Grid与Flexbox布局对比",
+    excerpt: "比较CSS Grid和Flexbox两种现代布局技术的优缺点，了解何时选择哪种布局方案。",
+    category: "CSS框架",
+    date: "2023年4月18日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=10",
+    authorImage: "https://picsum.photos/100/100?random=10",
+    link: "#"
+  },
+  {
+    id: 11,
+    title: "Web性能优化 checklist",
+    excerpt: "一份全面的Web性能优化清单，涵盖从代码到基础设施的各个方面，帮助你打造高性能网站。",
+    category: "性能优化",
+    date: "2023年4月10日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=11",
+    authorImage: "https://picsum.photos/100/100?random=11",
+    link: "#"
+  },
+  {
+    id: 12,
+    title: "PWA开发入门",
+    excerpt: "了解渐进式Web应用(PWA)的基本概念和核心特性，学习如何将普通网站转换为PWA。",
+    category: "前端开发",
+    date: "2023年4月2日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=12",
+    authorImage: "https://picsum.photos/100/100?random=12",
+    link: "#"
+  },
+  {
+    id: 13,
+    title: "JavaScript异步编程模式",
+    excerpt: "深入理解JavaScript中的异步编程模式，包括回调函数、Promise、async/await等，掌握异步代码的调试技巧。",
+    category: "JavaScript",
+    date: "2023年3月28日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=13",
+    authorImage: "https://picsum.photos/100/100?random=13",
+    link: "#"
+  },
+  {
+    id: 14,
+    title: "微前端架构实践",
+    excerpt: "探索微前端架构的设计理念和实现方式，了解如何将大型前端应用拆分为多个小型、自治的应用。",
+    category: "前端开发",
+    date: "2023年3月20日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=14",
+    authorImage: "https://picsum.photos/100/100?random=14",
+    link: "#"
+  },
+  {
+    id: 15,
+    title: "Vue.js与React对比分析",
+    excerpt: "对比分析Vue.js和React两大前端框架的优缺点、适用场景和生态系统，帮助你在项目中做出合适的技术选择。",
+    category: "前端开发",
+    date: "2023年3月15日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=15",
+    authorImage: "https://picsum.photos/100/100?random=15",
+    link: "#"
+  },
+  {
+    id: 16,
+    title: "Next.js性能优化策略",
+    excerpt: "学习Next.js应用的性能优化策略，包括代码分割、静态生成、服务器端渲染等技术的最佳实践。",
+    category: "前端开发",
+    date: "2023年3月8日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=16",
+    authorImage: "https://picsum.photos/100/100?random=16",
+    link: "#"
+  },
+  {
+    id: 17,
+    title: "CSS动画性能优化",
+    excerpt: "了解CSS动画的性能瓶颈和优化方法，学习如何创建流畅、高效的动画效果，避免常见的性能陷阱。",
+    category: "CSS框架",
+    date: "2023年3月1日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=17",
+    authorImage: "https://picsum.photos/100/100?random=17",
+    link: "#"
+  },
+  {
+    id: 18,
+    title: "GraphQL入门与实践",
+    excerpt: "学习GraphQL的基本概念和操作，了解它与REST API的区别和优势，掌握如何在项目中实现GraphQL API。",
+    category: "前端开发",
+    date: "2023年2月22日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=18",
+    authorImage: "https://picsum.photos/100/100?random=18",
+    link: "#"
+  },
+  {
+    id: 19,
+    title: "前端测试最佳实践",
+    excerpt: "探索前端测试的最佳实践，包括单元测试、集成测试、端到端测试等不同类型测试的实现方法和工具选择。",
+    category: "前端开发",
+    date: "2023年2月15日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=19",
+    authorImage: "https://picsum.photos/100/100?random=19",
+    link: "#"
+  },
+  {
+    id: 20,
+    title: "WebAssembly初探",
+    excerpt: "了解WebAssembly的基本概念和工作原理，学习如何将C/C++、Rust等语言编写的代码编译为WebAssembly模块并在浏览器中运行。",
+    category: "前端开发",
+    date: "2023年2月8日",
+    author: "Apple",
+    image: "https://picsum.photos/800/600?random=20",
+    authorImage: "https://picsum.photos/100/100?random=20",
+    link: "#"
+  }
+]    
