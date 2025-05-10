@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import ArticlePage from './components/ArticlePage.vue';
 import router from './router'  // 引入路由配置
 import './input.css'  // 引入全局样式
 
