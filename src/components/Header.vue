@@ -10,7 +10,7 @@
       <div class="flex justify-between items-center h-16 md:h-20">
         <div class="flex items-center">
           <a href="#" class="text-2xl font-bold" :class="isDarkMode ? 'text-white' : 'text-primary'">
-            <span :class="isDarkMode ? 'text-white' : 'text-dark'">Apple</span>Blog
+            <span :class="isDarkMode ? 'text-white' : 'text-dark'">Mashiro</span>Blog
           </a>
         </div>
         <div class="hidden md:flex items-center space-x-8">

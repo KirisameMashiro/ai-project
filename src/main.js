@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router'  // 引入路由配置
-import './input.css'  // 引入全局样式
 
 // // 引入Bootstrap CSS和JS
 // import 'bootstrap/dist/css/bootstrap.min.css';
