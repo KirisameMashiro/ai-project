@@ -14,7 +14,7 @@
           </a>
         </div>
         <div class="hidden md:flex items-center space-x-8">
-          <a href="#" :class="navLinkClass">首页</a>
+          <a href="../../index.html" :class="navLinkClass">首页</a>
           <a href="#" :class="navLinkClass">文章</a>
           <a href="#" :class="navLinkClass">分类</a>
           <a href="#" :class="navLinkClass">关于</a>
@@ -43,7 +43,7 @@
       ]"
     >
       <div class="container mx-auto px-4 py-2 space-y-1">
-        <a href="#" :class="mobileNavLinkClass" @click="navigateAndClose">首页</a>
+        <a href="../../index.html" :class="mobileNavLinkClass" @click="navigateAndClose">首页</a>
         <a href="#" :class="mobileNavLinkClass" @click="navigateAndClose">文章</a>
         <a href="#" :class="mobileNavLinkClass" @click="navigateAndClose">分类</a>
         <a href="#" :class="mobileNavLinkClass" @click="navigateAndClose">关于</a>

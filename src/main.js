@@ -1,5 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import ArticlePage from './components/ArticlePage.vue';
+import router from './router'  // 引入路由配置
+import './input.css'  // 引入全局样式
 
 // // 引入Bootstrap CSS和JS
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,4 +14,6 @@ import './input.css';
 //引入font-awesome
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-createApp(App).mount('#app');
+createApp(App)
+  .use(router)  // 使用路由
+  .mount('#app')  
